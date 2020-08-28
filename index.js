@@ -22,10 +22,10 @@ const upload = multer({
 });
 const app = express();
 
-
+const viewsDir = __dirname + '/views';
 
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/index.html');
+	res.sendFile(viewsDir + '/index.html');
 });
 
 app.post('/images/add', upload.single('photo'), function(req, res) {
