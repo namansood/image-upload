@@ -1,15 +1,29 @@
 # image-upload
 
-**To run:**
+A simple API for uploading images.
 
-Make sure MongoDB is running on localhost and Node.js is installed.
+## Features
+
+1. Uploads are anonymous; no login/signup required.
+2. Simple deletion process that only lets you upload your own images despite anonymity, using "deletion passwords" supplied at the time of upload.
+3. Supports batch upload/delete.
+
+## Build and run
+
+1. Install MongoDB: https://docs.mongodb.com/manual/administration/install-community/. Enable and start the `mongod` service on your operating system.
+
+2. Install Node.js: https://nodejs.org/en/
+
+3. Run the code as:
 
     git clone https://github.com/namansood/image-upload
     cd image-upload
     npm install
     node index.js
 
-**API:**
+Server will start on localhost:4242, and opening this URL in a browser will show an interactive demo of the API below.
+
+## API documentation
 
 	POST /images/add
 		expects field "photos" with photo files (jpg, png, gif)
