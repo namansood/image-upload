@@ -99,7 +99,7 @@ app.post('/images/delete', bodyParser.json(), function(req, res) {
 		let { id, password } = req.body.files[idx];
 
 		if(!id) {
-			return;
+			continue;
 		}
 
 		if(!password) {
@@ -108,7 +108,7 @@ app.post('/images/delete', bodyParser.json(), function(req, res) {
 				status: 'err',
 				error: 'nopasswd'
 			});
-			return;
+			continue;
 		}
 
 		const prm = Photo.findOne({ id: id })
