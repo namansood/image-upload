@@ -6,8 +6,11 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
+const imageDir = __dirname + '/images';
+const saltRounds = 10;
+
 const storage = multer.diskStorage({
-	destination: './images'
+	destination: imageDir
 });
 
 const upload = multer({
@@ -28,9 +31,6 @@ const upload = multer({
 });
 
 const app = express();
-
-const imageDir = __dirname + '/images';
-const saltRounds = 10;
 
 app.use(express.static(__dirname + '/static'));
 
