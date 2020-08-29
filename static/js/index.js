@@ -1,32 +1,57 @@
-document.querySelector('#testingbutton').addEventListener('click', function() {
-	location.href = '/images/' + document.querySelector('#photoid').value;
+document.querySelector('#imgget').addEventListener('click', function() {
+	const img = document.querySelector('#imggetresult img');
+	const urlBox = document.querySelector('#imggetresult .title');
+	const url = location.protocol + '//' + location.host + 
+				'/images/' + document.querySelector('#photoid').value;
+	img.src = url + '?random=' + Date.now();
+	img.style.display = 'block';
+	urlBox.innerHTML = url;
 });
 
 document.querySelector('#adddelinput').addEventListener('click', function(e) {
-	const el = e.target.parentElement;
+	e.preventDefault();
 
-	const input = document.createElement('input');
-	input.type = 'text';
-	const br = document.createElement('br');
+	const el = e.target.parentElement.querySelector('.delinputs');
 
-	el.appendChild(input);
-	el.appendChild(br);
+	const container = document.createElement('div');
+	container.classList.add('delitem');
+
+	const idInput = document.createElement('input');
+	idInput.setAttribute('type', 'text');
+	idInput.setAttribute('placeholder', 'Image ID');
+	idInput.classList.add('del-id-input');
+
+	const pwInput = document.createElement('input');
+	pwInput.setAttribute('type', 'text');
+	pwInput.setAttribute('placeholder', 'Deletion password');
+	pwInput.classList.add('del-pw-input');
+
+	const closeButton = document.createElement('div');
+	closeButton.classList.add('close-button');
+	closeButton.addEventListener('click', function() {
+		container.remove();
+	});
+
+	container.appendChild(idInput);
+	container.appendChild(pwInput);
+	container.appendChild(closeButton);
+
+	el.appendChild(container);
 });
 
 document.querySelector('#senddelrequest').addEventListener('click', function(e) {
-	const el = e.target.parentElement;
+	const el = e.target.parentElement.querySelector('.delinputs');
 
-	const inputs = el.querySelectorAll('input[type="text"]');
+	const inputs = el.querySelectorAll('.delitem');
 
 	const request = {
 		files: []
 	};
 
 	for(input of inputs) {
-		const a = input.value.split(',');
 		request.files.push({
-			id: a[0],
-			password: a[1]
+			id: input.querySelector('.del-id-input').value,
+			password: input.querySelector('.del-pw-input').value
 		});
 	}
 
@@ -38,8 +63,25 @@ document.querySelector('#senddelrequest').addEventListener('click', function(e) 
 		body: JSON.stringify(request)
 	})
 	.then(data => data.json())
-	.then(response => {
-		console.log(response);
-		alert('See response in console');
+	.then(obj => {
+		document.querySelector('#imgdeleteresult code').innerHTML = JSON.stringify(obj, null, 2);
 	});
 });
+
+document.querySelector('#imguploadform').addEventListener('submit', function(e) {
+	e.preventDefault();
+});
+
+document.querySelector('#photos').addEventListener('change', function() {
+	const form = document.querySelector('#imguploadform');
+	const formData = new FormData(form);
+
+	fetch(form.getAttribute('action'), {
+		method: 'POST',
+		body: formData
+	})
+	.then(data => data.json())
+	.then(obj => {
+		document.querySelector('#imguploadresult code').innerHTML = JSON.stringify(obj, null, 2).trim();
+	})
+})

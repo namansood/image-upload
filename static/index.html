@@ -1,30 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="css/index.css">
 	<title>Image upload API</title>
 </head>
 <body>
-	<code>	
-		<pre>	
-			API under construction.
-		</pre>
-		<form method="POST" action="/images/add" enctype="multipart/form-data">
-			<h1>Test the image upload:</h1>
-			<input type="file" name="photos" multiple>
-			<input type="submit" value="Go">
-		</form>
-		<h1>Test getting uploaded image:</h1>
-		<input type="text" id="photoid" placeholder="Enter photo ID here">
-		<button id="testingbutton">Go</button>
-		<h1>Test deleting images:</h1>
-		<form method="POST" action="/images/delete">
-			<p>Type <code>id,password</code> in each input:</p>
-			<button type="button" id="senddelrequest">Send deletion request</button>
-			<button type="button" id="adddelinput">Add another input</button>
-			<br>
-			<input type="text" />
-		</form>
-	</code>
+	<div class="api-test">
+		<div class="control-form">
+			<form method="POST" action="/images/add" id="imguploadform" enctype="multipart/form-data">
+				<h1>POST /images/add</h1>
+				<label for="photos" class="imguploadlabel">
+					<input type="file" name="photos" id="photos" multiple>
+					<div class="caption">Click or drag files here to upload</div>
+				</label>
+			</form>
+		</div>
+		<div class="form-output code-window" id="imguploadresult">
+			<pre data-title="JSON result"><code></code></pre>
+		</div>
+	</div>
+	<div class="api-test">
+		<div class="control-form">
+			<h1>GET /images/:id</h1>
+			<input type="text" id="photoid" placeholder="Enter photo ID here">
+			<button id="imgget">Show image</button>
+		</div>
+		<div class="form-output" id="imggetresult">
+			<div class="image-container">
+				<div class="title"></div>
+				<img src="" style="display: none" alt="">
+			</div>
+		</div>
+	</div>
+	<div class="api-test">
+		<div class="control-form">
+			<form method="POST" action="/images/delete">
+				<h1>POST /images/delete</h1>
+				<p>Type the ID and password for each image to be deleted.</p>
+				<br>
+				<div class="delinputs"></div>
+				<button type="button" id="adddelinput">Add an input</button>
+				<button type="button" id="senddelrequest">Send deletion request</button>
+			</form>
+		</div>
+		<div class="form-output code-window" id="imgdeleteresult">
+			<pre data-title="JSON result"><code></code></pre>
+		</div>
+	</div>
 	<script src="js/index.js"></script>
 </body>
 </html>
