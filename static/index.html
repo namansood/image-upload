@@ -17,7 +17,13 @@
 		<input type="text" id="photoid" placeholder="Enter photo ID here">
 		<button id="testingbutton">Go</button>
 		<h1>Test deleting images:</h1>
-		<form method="POST" action="/images/delete"></form>
+		<form method="POST" action="/images/delete">
+			<p>Type <code>id,password</code> in each input:</p>
+			<button type="button" id="senddelrequest">Send deletion request</button>
+			<button type="button" id="adddelinput">Add another input</button>
+			<br>
+			<input type="text" />
+		</form>
 	</code>
 	<script src="js/index.js"></script>
 </body>

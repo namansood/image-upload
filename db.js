@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const Photo = new Schema({
 	id: String,
-	extn: String
+	extn: String,
+	deletionPassword: String
 });
 
 Photo.methods.filename = function() {
