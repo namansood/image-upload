@@ -27,11 +27,8 @@ const upload = multer({
 
 const app = express();
 
-const viewsDir = __dirname + '/views';
 
-app.get('/', function(req, res) {
-	res.sendFile(viewsDir + '/index.html');
-});
+app.use(express.static(__dirname + '/static'));
 
 app.post('/images/add', upload.array('photos'), function(req, res) {
 	const response = {
